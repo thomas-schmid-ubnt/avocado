@@ -82,6 +82,7 @@ def get_data_files():
                     glob.glob('examples/wrappers/*.sh'))]
 
     data_files.append((get_avocado_libexec_dir(), glob.glob('libexec/*')))
+    print(data_files)
     return data_files
 
 
