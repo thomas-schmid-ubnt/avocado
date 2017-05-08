@@ -24,7 +24,7 @@ a custom Varianter plugin.
 import collections
 import itertools
 import re
-import sha
+import hashlib
 
 from . import output
 from . import tree
@@ -168,11 +168,12 @@ class MuxPlugin(object):
 
     def _get_variant_ids(self):
         variant_ids = []
+        sha = haslib.sha1()
         for variant in MuxTree(self.root):
             variant.sort(key=lambda x: x.path)
             fingerprint = "-".join(_.fingerprint() for _ in variant)
             variant_ids.append("-".join(node.name for node in variant) + '-' +
-                               sha.sha(fingerprint).hexdigest()[:4])
+                               sha.update(fingerprint).hexdigest()[:4])
         return variant_ids
 
     def __iter__(self):
